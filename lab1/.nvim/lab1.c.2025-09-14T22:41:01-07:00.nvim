@@ -1,0 +1,12 @@
+#include <stdio.h>
+#include <stdlib.h>
+int main()
+{
+  FILE *stream;
+  char *line = NULL;
+  size_t len = 0;
+  ssize_t text;
+  printf("Please enter some text: ");
+  text = getline(&line, &len, stream);
+  printf("\n", line);
+}
