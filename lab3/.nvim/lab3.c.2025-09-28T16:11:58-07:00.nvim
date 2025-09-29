@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+void print_history(char *history[], int index, int count)
+{
+  int start = (index + (5 - count)) % 5;
+  for (int i = 0; i < count; i++)
+  {
+    int position = (start + i) % 5;
+    printf("%s", history[position])
+  }
+}
+int main() {
+  char *history[5] = {NULL};
+  int index = 0;
+  int count = 0;
+  char *buffer = NULL;
+  size_t buffer_size = 0;
+  while (1) {
+    printf("Enter input: ");
+    if (getline(&buffer, &buffer_size, stdin) == -1) {
+      break;
+    }
+    if (history[index] != NULL) {
+      free(history[index]);
+    }
+    history[index] = strdup(buffer);
+    index = (index + 1) % 5;
+    if (count < 5) {
+      count++;
+    }
+    if (strcmp(buffer, "print\n") == 0) {
+      print_history(history, index, count);
+    }
+  }
+  free(buffer);
+  for (int i = 0; i < 5; i++) {
+    free(history[i]);
+  }
+  return 0;
+}
